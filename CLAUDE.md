@@ -60,3 +60,9 @@ Esto salió de un caso real, no de un tutorial de laboratorio: alguien quería q
 gráficos y acabó siendo un pipeline completo. Por eso el ejemplo tiene un veredicto que **contradice
 al indicador** — esa es justamente la lección. La herramienta no está para obedecer al indicador,
 sino para darte con qué discutirle.
+
+# Sincronizacion con GitHub (obligatorio)
+
+- Al EMPEZAR a trabajar aqui: `git fetch` + `git pull --ff-only` — este proyecto se usa desde varios dispositivos/sesiones y la version buena puede estar en el remoto. Si el pull falla por divergencia, avisar antes de tocar nada.
+- Con CADA cambio terminado: commit y push. Nada queda solo en esta maquina.
+- OJO deploy: si este repo tiene auto-deploy (Vercel/Lovable/Render/Cloudflare), un push a la rama de produccion PUBLICA. El trabajo que no deba salir aun va en una rama, pero siempre subida al remoto.
