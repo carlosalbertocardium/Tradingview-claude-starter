@@ -96,13 +96,21 @@ a recordar qué leíste en el gráfico y qué dedujiste tú — y esa diferencia
 **3. Nunca inventar un dato.** Lo que no se lee va como `?`. Un hueco visible es información; un
 hueco rellenado con una estimación plausible es una mentira que no se puede detectar después.
 
-**4. Toda la escritura de ficheros pasa por dos scripts.** No es manía de orden: así la lista de
-permisos que le das a Claude son dos líneas en vez de concederle mover ficheros por todo el disco.
-Diseñar para el permiso mínimo, no pedir permiso amplio.
+**4. Crear carpetas y mover ficheros pasa por dos scripts.** No es manía de orden: así no hace
+falta concederle permiso de mover ficheros por todo el disco, sino de ejecutar *esos dos scripts
+concretos*. El CSV y la bitácora sí se escriben directo, así que además hacen falta `Write` y
+`Edit` **acotados a la carpeta de trabajo** — cuatro entradas en total, todas explicables. La idea
+es diseñar para el permiso mínimo, no que la lista sea corta a costa de mentir sobre lo que hace.
 
-**5. El rango de 120 días.** Es lo que separa un análisis de una foto. Un indicador te dice que
-algo está alcista *ahora*; el rango te dice si eso es una tendencia o un rebote dentro de una caída
-de cuatro meses. Sin ese contexto, todas las señales parecen igual de buenas.
+**5. El rango de 120 días — medido en diario.** Es lo que separa un análisis de una foto. Un
+indicador te dice que algo está alcista *ahora*; el rango te dice si eso es una tendencia o un
+rebote dentro de una caída de cuatro meses. Sin ese contexto, todas las señales parecen igual de
+buenas.
+
+Con una trampa que costó encontrar: `data_get_ohlcv` lee la temporalidad **del gráfico**. Si no
+la fijas a diario antes de pedirla, con el gráfico en 4H mides 20 días creyendo que mides 120, sin
+ningún aviso. En BTCUSDT, el mismo instante daba −9,55% de variación leyendo 4H y +13,95% leyendo
+diario: signo opuesto. La skill fija la temporalidad en la Fase 2 por esto.
 
 ---
 

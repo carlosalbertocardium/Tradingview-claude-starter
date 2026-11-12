@@ -107,9 +107,29 @@ Si un símbolo no resuelve, **sáltalo, sigue, y dilo al final**. Nunca recortes
    **Verifica que los precios corresponden al instrumento nuevo.** Si se parecen al anterior, la
    tabla está rancia: repite la lectura. Es el error más silencioso del pipeline.
 3. `capture_screenshot` con `filename: "<INSTRUMENTO>_MTF_<AAAA-MM-DD>"`, `region: "full"`.
-4. `data_get_ohlcv` con `count: 120, summary: true`.
+   **Cierra antes el editor Pine** si está abierto (`ui_open_panel` → `pine-editor`, `close`):
+   `region: "full"` captura la ventana entera, y el editor se come un tercio del ancho y tapa
+   parte de la tabla.
+4. **`chart_set_timeframe` a `D`**, y recién entonces `data_get_ohlcv` con
+   `count: 120, summary: true`.
+
+   `data_get_ohlcv` lee la temporalidad **del gráfico**, no la diaria. Si no la fijas, con el
+   gráfico en 4H las «120 velas diarias» son 20 días, y en 15 minutos son día y medio. Falla en
+   silencio: los números que devuelve son plausibles.
+
+   Medido el 2026-11-11 sobre BTCUSDT, mismo instante, leyendo 120 velas de 4H contra 120 diarias:
+
+   | | 120 × 4H | 120 × diario |
+   |---|---|---|
+   | Posición en rango | 11,4% (verde, «zona baja») | 45,8% (amarillo, «sin ventaja») |
+   | Variación | **−9,55%** | **+13,95%** |
+
+   La variación **cambia de signo**, así que la regla de «¿tendencia o rebote?» se aplica al
+   revés y el semáforo de la hoja Técnico cambia de color. Contamina `high120`, `low120`,
+   `chg120` y todo lo que se derive de ellos.
+
    **Esto es lo que separa un análisis de una foto**: sin el rango de 120 días no sabes si lo que
-   ves es tendencia o rebote.
+   ves es tendencia o rebote. Pero solo si los 120 días son 120 días.
 
 Secuencial: hay un solo gráfico. No intentes paralelizar.
 
@@ -119,12 +139,22 @@ Secuencial: hay un solo gráfico. No intentes paralelizar.
 python <ruta>/scripts/preparar.py 2026-08-04 "EURUSD,USDJPY,GBPUSD"
 ```
 
-Avisa de las que no encontró (`SIN CAPTURA`). **No muevas ficheros a mano**: toda la escritura pasa
-por este script a propósito, para que la lista de permisos siga siendo de dos entradas.
+Avisa de las que no encontró (`SIN CAPTURA`). **No muevas ficheros a mano**: mover y crear pasa
+por este script a propósito, para no tener que conceder permiso de mover ficheros por el disco.
+Escribir el CSV y la bitácora sí es directo (Fase 4), y por eso el `04` añade `Write` y `Edit`
+acotados a la carpeta de trabajo.
 
 ## Fase 4 — Datos
 
 Añade a `datos/lecturas_mtf.csv` una fila por instrumento y temporalidad (60/240/D).
+
+Las columnas que salen de un indicador con lógica de señal propia —`score_tf`, `veredicto`,
+`score_ponderado_pct`, `motivo`, `precio_ref`, `largo_sl`, `largo_tp`, `corto_sl`, `corto_tp`—
+van como `?` si tu tabla no las trae. **No las deduzcas tú**: el CSV es lo leído, y tu lectura va
+en `analisis/`. En el Excel, `ver_ind` y `score_ind` son opcionales y salen vacíos.
+
+Esta fase **no pasa por los dos scripts**: la escribe Claude directamente. Por eso el `04` pide
+`Write` y `Edit` sobre la carpeta de trabajo además de los dos permisos de ejecución.
 
 ## Fase 5 — Análisis propio
 

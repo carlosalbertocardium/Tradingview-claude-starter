@@ -60,9 +60,14 @@ Dos causas, y conviene distinguirlas:
 **El indicador no está visible en el gráfico.** Las herramientas de lectura solo ven lo que está
 pintado. Un indicador oculto (ojo tachado) o quitado no devuelve nada.
 
-**El indicador vive en un subpanel.** `data_get_study_values` solo devuelve los del panel principal.
-RSI, MACD, ATR y compañía no aparecen aunque estén visibles. **No es un fallo** — es la limitación
-que resuelve el [`02-leer-datos/`](../02-leer-datos/).
+**El indicador no publica valores.** `data_get_study_values` lee lo que el estudio expone en la
+ventana de datos. Los de subpanel —RSI, MACD, ATR— **sí salen** (verificado el 2026-11-11); lo que
+no sale es lo que un indicador dibuja sin `plot()`: tablas, etiquetas, líneas y cajas. Para eso
+están `data_get_pine_tables`, `data_get_pine_labels`, `data_get_pine_lines` y `data_get_pine_boxes`.
+
+Y aunque salgan, salen con una sola temporalidad, con el locale de la app (`35,40`, menos Unicode)
+y con miles de tokens de código ofuscado por respuesta. Por eso conviene el
+[`02-leer-datos/`](../02-leer-datos/).
 
 ---
 

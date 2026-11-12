@@ -77,11 +77,13 @@ Aunque nunca uses la skill, esto es lo transferible:
 Es una app Electron. Lanzada con `--remote-debugging-port=9222` expone un puerto por el que un
 programa puede leer y controlar el gráfico. Ahí es donde se engancha el MCP.
 
-**2. Si un indicador no expone sus valores, haz que los dibuje en una tabla.**
-El MCP solo lee los indicadores del panel principal — RSI, MACD y ATR viven en subpaneles y son
-invisibles. La solución no es pelearse con el MCP: es escribir un indicador Pine de diez líneas
-que vuelque los valores en un `table.new`, que sí se lee como texto limpio. Con eso, **cualquier
-cosa que puedas calcular en Pine se vuelve legible por Claude.** Está en el `02`.
+**2. Si leer un indicador te sale caro o incompleto, haz que lo dibuje en una tabla.**
+Leer los indicadores uno a uno te da **una sola temporalidad**, los números con el locale de la
+app (`35,40`, con signo menos Unicode) y unos 8.000 tokens de código ofuscado por respuesta. La
+solución no es pelearse con el MCP: es escribir un indicador Pine de diez líneas que vuelque los
+valores en un `table.new`, que se lee como texto limpio, con las tres temporalidades de una vez y
+por ~200 tokens. Con eso, **cualquier cosa que puedas calcular en Pine se vuelve legible por
+Claude.** Está en el `02`.
 
 **3. Lee números como texto, no como imágenes.**
 Una captura son 1–2k tokens y encima Claude puede leer mal un dígito. Los mismos datos como texto

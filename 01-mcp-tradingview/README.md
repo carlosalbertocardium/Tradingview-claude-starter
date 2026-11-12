@@ -139,7 +139,7 @@ Cámbiame el gráfico a EURUSD en 4 horas.
 Tómame una captura del gráfico.
 ```
 
-Para leer indicadores que viven en subpaneles (RSI, MACD, ATR), sigue al
+Para leer varios indicadores y varias temporalidades de una vez, en texto exacto y barato, sigue al
 [`02-leer-datos/`](../02-leer-datos/) — ahí está el truco.
 
 ---
