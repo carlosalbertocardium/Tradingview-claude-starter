@@ -2,6 +2,14 @@
 
 **Conecta Claude a tu TradingView y automatiza tu análisis técnico.**
 
+> **Esta es una copia con correcciones.** El kit original es de
+> [Juan Camilo Rico (@Jumilo098)](https://github.com/Jumilo098/tradingview-claude-starter), MIT.
+> Aquí se probó entero el 2026-11-11 sobre BTCUSDT y ETHUSDT y se corrigió lo que falló por el
+> camino: un bug que hacía medir 20 días donde decía 120, una afirmación sobre el MCP que ya no
+> es cierta, y tres promesas de la documentación que no se sostenían. El detalle está en el
+> commit «Corregir lo que fallo al probar el kit de punta a punta».
+> Si buscas la versión del autor, ve al repo original.
+
 Tres piezas que puedes tomar por separado o montar enteras:
 
 1. **La conexión** — que Claude vea tu gráfico en vivo (precios, indicadores, capturas)
@@ -105,5 +113,10 @@ El puente con TradingView es el proyecto **[tradingview-mcp](https://github.com/
 de [tradesdontlie](https://github.com/tradesdontlie), licencia MIT. **No está copiado en este repo:**
 se clona del original para que recibas sus actualizaciones. Todo el mérito de esa pieza es suyo.
 
-Este kit (los scripts de arranque, la skill, la documentación) es MIT — ver [LICENSE](LICENSE).
+Este kit (los scripts de arranque, la skill, la documentación) es obra de **Juan Camilo Rico**
+([@Jumilo098](https://github.com/Jumilo098)) y es MIT — ver [LICENSE](LICENSE), que se mantiene
+intacta. Este repositorio es una copia suya con correcciones, no un trabajo propio: el mérito del
+diseño es de él, y los fallos corregidos solo salieron a la luz porque el kit era lo bastante
+bueno como para probarlo entero.
+
 No está afiliado a TradingView Inc. ni a Anthropic.
